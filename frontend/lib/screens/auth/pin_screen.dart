@@ -36,16 +36,10 @@ class _PinScreenState extends State<PinScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFFCF3EE), 
-                  Color(0xFFF9E8E2),
-                ],
-              ),
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/01-lock-screen.png',
+              fit: BoxFit.cover,
             ),
           ),
           SafeArea(
@@ -55,7 +49,9 @@ class _PinScreenState extends State<PinScreen> {
                 const SizedBox(height: 60),
                 Text(
                   'Введите PIN-код',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: Colors.white, // assuming lock screen bg is dark/colorful
+                      ),
                 ),
                 const SizedBox(height: 40),
                 // PIN indicators
@@ -69,9 +65,9 @@ class _PinScreenState extends State<PinScreen> {
                       height: 16,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: isFilled ? Theme.of(context).primaryColor : Colors.transparent,
+                        color: isFilled ? Colors.white : Colors.transparent,
                         border: Border.all(
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.white,
                           width: 2,
                         ),
                       ),
