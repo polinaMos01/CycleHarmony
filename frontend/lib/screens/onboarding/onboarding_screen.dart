@@ -44,17 +44,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image changing per page
-          Positioned.fill(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 400),
-              child: Image.asset(
-                'assets/images/Rectangle-${_currentPage + 1}.png',
-                key: ValueKey<int>(_currentPage),
-                fit: BoxFit.cover,
+          // Background Gradient matching Figma
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFFCF3EE), // Soft peach top
+                  Color(0xFFF9E8E2), // Slightly darker bottom
+                ],
               ),
             ),
           ),
+          // Here we can place the exact illustration for each page once identified
+          // Positioned.fill(child: Image.asset('assets/images/...', fit: BoxFit.cover)),
           
           SafeArea(
             child: Column(

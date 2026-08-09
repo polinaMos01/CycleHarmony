@@ -16,10 +16,16 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/Rectangle-1.png',
-              fit: BoxFit.cover,
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFFCF3EE), 
+                  Color(0xFFF9E8E2),
+                ],
+              ),
             ),
           ),
           SafeArea(
