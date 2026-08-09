@@ -16,18 +16,17 @@ class AppTheme {
         background: backgroundColor,
       ),
       textTheme: TextTheme(
-        displayLarge: GoogleFonts.cormorantGaramond(
-          fontSize: 36,
-          fontWeight: FontWeight.w600,
+        displayLarge: const TextStyle(
+          fontFamily: 'BoleroScript',
+          fontSize: 48,
           color: textPrimaryColor,
-          fontStyle: FontStyle.italic,
         ),
         bodyLarge: GoogleFonts.inter(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: textSecondaryColor,
         ),
-        labelLarge: GoogleFonts.inter(
+        labelLarge: GoogleFonts.lora(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: Colors.white,
