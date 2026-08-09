@@ -20,6 +20,27 @@ class CycleHarmonyApp extends ConsumerWidget {
       title: 'Cycle Harmony',
       theme: AppTheme.lightTheme,
       routerConfig: appRouter,
+      builder: (context, child) {
+        return Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 420),
+            child: Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    spreadRadius: 5,
+                  ),
+                ],
+              ),
+              child: child!,
+            ),
+          ),
+        );
+      },
       debugShowCheckedModeBanner: false,
     );
   }
