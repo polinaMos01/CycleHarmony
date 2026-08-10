@@ -113,7 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             } else {
-                              // TODO: Navigate to Home
+                              context.push('/questionnaire_calendar');
                             }
                           },
                           child: Text(
