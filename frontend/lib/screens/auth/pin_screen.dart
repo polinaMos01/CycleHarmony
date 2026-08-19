@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PinScreen extends StatefulWidget {
   const PinScreen({super.key});
@@ -11,36 +12,42 @@ class PinScreen extends StatefulWidget {
 }
 
 class _PinScreenState extends State<PinScreen> {
-  String _pin = '';
-  bool _isSetupMode = true; // Для переключения режимов
+  final TextEditingController _pinController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  
+  bool _isSetupMode = true;
 
-  void _onKeyPressed(String value) {
-    if (_pin.length < 4) {
-      setState(() {
-        _pin += value;
-      });
-      if (_pin.length == 4) {
-        Future.delayed(const Duration(milliseconds: 300), () {
-          if (_isSetupMode) {
-            _showFaceIdDialog();
-          } else {
-            // Имитация успешной разблокировки
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Успешный вход!')),
-            );
-            setState(() { _pin = ''; });
-          }
-        });
-      }
-    }
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
   }
 
-  void _onBackspacePressed() {
-    if (_pin.isNotEmpty) {
-      setState(() {
-        _pin = _pin.substring(0, _pin.length - 1);
+  @override
+  void dispose() {
+    _pinController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onPinChanged(String value) {
+    if (value.length == 4) {
+      _focusNode.unfocus();
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (_isSetupMode) {
+          _showFaceIdDialog();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Успешный вход!')),
+          );
+          _pinController.clear();
+          setState(() {});
+        }
       });
     }
+    setState(() {});
   }
 
   void _showFaceIdDialog() {
@@ -66,14 +73,16 @@ class _PinScreenState extends State<PinScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              setState(() { _pin = ''; _isSetupMode = false; });
+              setState(() { _pinController.clear(); _isSetupMode = false; });
+              FocusScope.of(context).requestFocus(_focusNode);
             },
             child: const Text('Позже', style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              setState(() { _pin = ''; _isSetupMode = false; });
+              setState(() { _pinController.clear(); _isSetupMode = false; });
+              FocusScope.of(context).requestFocus(_focusNode);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFC9594F),
@@ -88,10 +97,14 @@ class _PinScreenState extends State<PinScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String pin = _pinController.text;
+    
+    // ignore: avoid_unnecessary_containers
     return Scaffold(
+      resizeToAvoidBottomInset: false, // Фон не сжимается при вызове клавиатуры
       body: Stack(
         children: [
-          // Чистый фон гор (без цветочного экрана)
+          // 1. Чистый фон гор
           Positioned.fill(
             child: Image.asset(
               'assets/images/splash_bg.png',
@@ -99,152 +112,185 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
           
+          // 2. Белый блюр под текстом Cycle Harmony
+          Positioned(
+            top: 150,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: 300,
+                height: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.8),
+                      blurRadius: 100,
+                      spreadRadius: 80,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // 3. Левая веточка
+          Positioned(
+            left: -130, // по макету
+            top: 135,
+            child: SvgPicture.asset(
+              'assets/svg/Object.svg',
+              width: 264,
+            ),
+          ),
+          
+          // 4. Правая веточка
+          Positioned(
+            right: -60,
+            bottom: 50,
+            child: SvgPicture.asset(
+              'assets/svg/Object-1.svg',
+              width: 264,
+            ),
+          ),
+
+          // 5. Основной контент (Сдвинут вверх)
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // DEV ТУМБЛЕР (Чтобы показать оба экрана)
+                // DEV ТУМБЛЕР
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: TextButton.icon(
                     onPressed: () {
                       setState(() {
                         _isSetupMode = !_isSetupMode;
-                        _pin = '';
+                        _pinController.clear();
                       });
+                      FocusScope.of(context).requestFocus(_focusNode);
                     },
                     icon: const Icon(Icons.swap_horiz, color: Colors.black54),
                     label: Text(
-                      _isSetupMode ? 'ДЕМO: Сейчас "Создание ПИН" -> Сменить на "Вход"' 
-                                   : 'ДЕМO: Сейчас "Вход" -> Сменить на "Создание"',
+                      _isSetupMode ? 'ДЕМO: "Создание" -> Сменить на "Вход"' 
+                                   : 'ДЕМO: "Вход" -> Сменить на "Создание"',
                       style: const TextStyle(color: Colors.black54, fontSize: 12),
                     ),
                   ),
                 ),
                 
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 
-                // Заголовок
+                // Название приложения
                 Text(
-                  _isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код',
+                  'Cycle Harmony',
+                  style: TextStyle(
+                    fontFamily: 'BoleroScript',
+                    fontSize: 49,
+                    color: const Color(0xFFC9594F),
+                  ),
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Подзаголовок
+                Text(
+                  'Понимай себя.\nСтрой гармоничные отношения.',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    height: 21 / 14,
                     color: const Color(0xFF6B5954),
                   ),
                 ),
                 
-                const SizedBox(height: 12),
+                const SizedBox(height: 40),
                 
+                // PIN Заголовок
                 Text(
-                  _isSetupMode ? 'Для защиты ваших данных' : ' ',
-                  style: GoogleFonts.inter(
+                  _isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код',
+                  style: GoogleFonts.manrope(
                     fontSize: 14,
-                    color: const Color(0xFF6B5954).withOpacity(0.7),
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF8A7370), // rgb(0.54, 0.45, 0.44)
                   ),
                 ),
                 
-                const SizedBox(height: 40),
+                const SizedBox(height: 16),
                 
-                // PIN indicators
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(4, (index) {
-                    bool isFilled = index < _pin.length;
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isFilled ? const Color(0xFFC9594F) : Colors.transparent,
-                        border: Border.all(
-                          color: const Color(0xFFC9594F),
-                          width: 2,
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-                
-                const Spacer(),
-                
-                // Numpad (Glassmorphism Кнопки)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1.2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                    ),
-                    itemCount: 12,
-                    itemBuilder: (context, index) {
-                      if (index == 9) {
-                        return IconButton(
-                          icon: const Icon(Icons.face_unlock_rounded, size: 36, color: Color(0xFF6B5954)),
-                          onPressed: () {
-                            if (!_isSetupMode) {
-                              _showFaceIdDialog();
-                            }
-                          },
-                        );
-                      }
-                      if (index == 11) {
-                        return IconButton(
-                          icon: const Icon(Icons.backspace_outlined, size: 28, color: Color(0xFF6B5954)),
-                          onPressed: _onBackspacePressed,
-                        );
-                      }
-                      
-                      int number = index == 10 ? 0 : index + 1;
-                      return GestureDetector(
-                        onTap: () => _onKeyPressed(number.toString()),
-                        child: ClipOval(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white.withOpacity(0.2), // Глассморфизм прозрачность
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.5), // Светлая каемка
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  number.toString(),
-                                  style: GoogleFonts.inter(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF6B5954),
-                                  ),
-                                ),
-                              ),
-                            ),
+                // PIN Индикаторы (4 точки)
+                GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(_focusNode);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(4, (index) {
+                      bool isFilled = index < pin.length;
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, // rgb(0.23, 0.13, 0.13)
+                          border: isFilled ? null : Border.all(
+                            color: const Color(0xFF3A2121),
+                            width: 0.75,
                           ),
                         ),
                       );
-                    },
+                    }),
                   ),
                 ),
                 
-                if (!_isSetupMode) ...[
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Забыли ПИН-код?',
-                      style: TextStyle(color: const Color(0xFFC9594F), fontSize: 16),
+                const SizedBox(height: 24),
+                
+                // Кнопка Face ID
+                if (!_isSetupMode)
+                  GestureDetector(
+                    onTap: _showFaceIdDialog,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.face, size: 24, color: Color(0xFFFF7A70)), // rgb(1, 0.48, 0.44)
+                        const SizedBox(width: 8),
+                        Text(
+                          'Войти через Face ID',
+                          style: GoogleFonts.manrope(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFFFF7A70),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ] else ...[
-                  const SizedBox(height: 48), // Место под кнопку, чтобы не прыгало
-                ],
-                const SizedBox(height: 20),
+
+                // Невидимое поле для нативной клавиатуры
+                SizedBox(
+                  height: 0,
+                  width: 0,
+                  child: TextField(
+                    controller: _pinController,
+                    focusNode: _focusNode,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    maxLength: 4,
+                    onChanged: _onPinChanged,
+                    showCursor: false,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    style: const TextStyle(color: Colors.transparent),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      counterText: '',
+                    ),
+                  ),
+                ),
+                
+                const Spacer(),
               ],
             ),
           ),

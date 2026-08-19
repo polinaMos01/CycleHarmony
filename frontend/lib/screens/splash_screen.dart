@@ -13,14 +13,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Навигация временно отключена для ревью
-    /*
+    // Навигация на ПИН-код через 3 секунды
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        context.go('/language');
+        context.go('/pin');
       }
     });
-    */
   }
 
   @override
@@ -38,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
           
           // Левая веточка
           Positioned(
-            left: -130, // Подбираем смещение по Figma (-242)
-            top: 135,
+            left: -80, 
+            top: 180,
             child: SvgPicture.asset(
               'assets/svg/Object.svg',
               width: 264,
@@ -48,8 +46,8 @@ class _SplashScreenState extends State<SplashScreen> {
           
           // Правая веточка
           Positioned(
-            right: -60, // Подбираем смещение
-            bottom: 50, // Подбираем по Figma (y: 816)
+            right: -30, 
+            bottom: -20, 
             child: SvgPicture.asset(
               'assets/svg/Object-1.svg',
               width: 264,
