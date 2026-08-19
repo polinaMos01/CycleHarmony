@@ -34,25 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
-          // Левая веточка
-          Positioned(
-            left: -80, 
-            top: 180,
-            child: SvgPicture.asset(
-              'assets/svg/Object-1.svg',
-              width: 264,
-            ),
-          ),
-          
-          // Правая веточка
-          Positioned(
-            right: -30, 
-            bottom: -20, 
-            child: SvgPicture.asset(
-              'assets/svg/Object.svg',
-              width: 264,
-            ),
-          ),
+          // Левые и правые веточки временно убраны из-за кривого экспорта SVG
           
           // Белый блюр (свечение) под текстом
           Center(

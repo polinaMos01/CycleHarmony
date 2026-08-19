@@ -135,25 +135,7 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
 
-          // 3. Левая веточка
-          Positioned(
-            left: -130, // по макету
-            top: 135,
-            child: SvgPicture.asset(
-              'assets/svg/Object-1.svg',
-              width: 264,
-            ),
-          ),
-          
-          // 4. Правая веточка
-          Positioned(
-            right: -60,
-            bottom: 50,
-            child: SvgPicture.asset(
-              'assets/svg/Object.svg',
-              width: 264,
-            ),
-          ),
+          // Левые и правые веточки временно убраны из-за кривого экспорта SVG
 
           // 5. Основной контент (Сдвинут вверх)
           SafeArea(
