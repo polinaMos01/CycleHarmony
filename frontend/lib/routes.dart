@@ -6,6 +6,7 @@ import 'package:frontend/screens/auth/role_selection_screen.dart';
 import 'package:frontend/screens/auth/password_recovery_screen.dart';
 import 'package:frontend/screens/onboarding/onboarding_screen.dart';
 
+import 'package:frontend/screens/splash_screen.dart';
 import 'package:frontend/screens/questionnaire/calendar_screen.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -13,6 +14,10 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/language',
       builder: (context, state) => const LanguageScreen(),
     ),
     GoRoute(
