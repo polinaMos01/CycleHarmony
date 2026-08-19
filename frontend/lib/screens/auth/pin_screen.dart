@@ -91,12 +91,15 @@ class _PinScreenState extends State<PinScreen> {
         children: [
           Positioned.fill(child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover)),
           
-          Positioned(
-            top: 170, left: 0, right: 0,
-            child: Center(
-              child: Container(
-                width: 300, height: 150,
-                decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.8), blurRadius: 100, spreadRadius: 80)]),
+          // Блюр по центру
+          const Center(
+            child: SizedBox(
+              width: 300, height: 150,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: Colors.white70, blurRadius: 100, spreadRadius: 80)],
+                ),
               ),
             ),
           ),
@@ -117,9 +120,8 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
 
-          // Абсолютно фиксированный текст, чтобы не прыгал
-          Positioned(
-            top: 170, left: 0, right: 0,
+          // ЗАГОЛОВОК СТРОГО ПО ЦЕНТРУ
+          Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -130,47 +132,50 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
           
-          // PIN Блок 
-          Positioned(
-            top: 450, left: 0, right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(_isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w600, color: const Color(0xFF8A7370))),
-                const SizedBox(height: 16),
-                GestureDetector(
-                  onTap: () => FocusScope.of(context).requestFocus(_focusNode),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(4, (index) {
-                      bool isFilled = index < pin.length;
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 16, height: 16,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, border: isFilled ? null : Border.all(color: const Color(0xFF3A2121), width: 0.75)),
-                      );
-                    }),
-                  ),
-                ),
-                if (!_isSetupMode) ...[
-                  const SizedBox(height: 24),
+          // PIN Блок ОПУЩЕН НИЖЕ ОТ ЦЕНТРА НА 180 ПИКСЕЛЕЙ
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(0, 180),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(_isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w600, color: const Color(0xFF8A7370))),
+                  const SizedBox(height: 16),
                   GestureDetector(
-                    onTap: _showFaceIdDialog,
+                    onTap: () => FocusScope.of(context).requestFocus(_focusNode),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/scan-face.svg',
-                          width: 24, height: 24,
-                          colorFilter: const ColorFilter.mode(Color(0xFFFF7A70), BlendMode.srcIn),
-                        ),
-                        const SizedBox(width: 8),
-                        Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
-                      ],
+                      children: List.generate(4, (index) {
+                        bool isFilled = index < pin.length;
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          width: 16, height: 16,
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, border: isFilled ? null : Border.all(color: const Color(0xFF3A2121), width: 0.75)),
+                        );
+                      }),
                     ),
                   ),
+                  if (!_isSetupMode) ...[
+                    const SizedBox(height: 24),
+                    GestureDetector(
+                      onTap: _showFaceIdDialog,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/svg/scan-face.svg',
+                            width: 24, height: 24,
+                            colorFilter: const ColorFilter.mode(Color(0xFFFF7A70), BlendMode.srcIn),
+                          ),
+                          const SizedBox(width: 8),
+                          Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
+                        ],
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
           SizedBox(height: 0, width: 0, child: TextField(controller: _pinController, focusNode: _focusNode, keyboardType: TextInputType.number, inputFormatters: [FilteringTextInputFormatter.digitsOnly], maxLength: 4, onChanged: _onPinChanged, showCursor: false, style: const TextStyle(color: Colors.transparent), decoration: const InputDecoration(border: InputBorder.none, counterText: ''))),

@@ -46,20 +46,20 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover),
           ),
           
-          Positioned(
-            top: 170, left: 0, right: 0,
-            child: Center(
-              child: Container(
-                width: 300, height: 150,
+          // Блюр по центру
+          const Center(
+            child: SizedBox(
+              width: 300, height: 150,
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.8), blurRadius: 100, spreadRadius: 80)],
+                  boxShadow: [BoxShadow(color: Colors.white70, blurRadius: 100, spreadRadius: 80)],
                 ),
               ),
             ),
           ),
 
-          // Ветка СЛЕВА (Object-1.svg)
+          // Ветка СЛЕВА
           Positioned(
             left: -100, top: 150,
             child: AnimatedOpacity(
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
-          // Ветка СПРАВА (Object.svg)
+          // Ветка СПРАВА
           Positioned(
             right: -80, bottom: -20,
             child: AnimatedOpacity(
@@ -77,8 +77,8 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
-          Positioned(
-            top: 170, left: 0, right: 0,
+          // ЗАГОЛОВОК СТРОГО ПО ЦЕНТРУ
+          Center(
             child: AnimatedOpacity(
               opacity: _opacityText, duration: const Duration(milliseconds: 1000),
               child: Column(
