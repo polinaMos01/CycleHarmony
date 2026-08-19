@@ -56,6 +56,24 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
+          // Белый блюр (свечение) под текстом
+          Center(
+            child: Container(
+              width: 300,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.8),
+                    blurRadius: 100,
+                    spreadRadius: 80,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
           // Контент по центру
           Center(
             child: Column(
