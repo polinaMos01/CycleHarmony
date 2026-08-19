@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           
           Positioned(
-            top: 200, left: 0, right: 0,
+            top: 170, left: 0, right: 0,
             child: Center(
               child: Container(
                 width: 300, height: 150,
@@ -77,22 +77,17 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
-          SafeArea(
+          Positioned(
+            top: 170, left: 0, right: 0,
             child: AnimatedOpacity(
               opacity: _opacityText, duration: const Duration(milliseconds: 1000),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 250),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
-                      const SizedBox(height: 16),
-                      Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
-                    ],
-                  ),
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
+                  const SizedBox(height: 16),
+                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
+                ],
               ),
             ),
           ),

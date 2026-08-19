@@ -92,7 +92,7 @@ class _PinScreenState extends State<PinScreen> {
           Positioned.fill(child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover)),
           
           Positioned(
-            top: 200, left: 0, right: 0,
+            top: 170, left: 0, right: 0,
             child: Center(
               child: Container(
                 width: 300, height: 150,
@@ -117,57 +117,60 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
 
-          SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // СИЛЬНО ОПУСКАЕМ ТЕКСТ ВНИЗ
-                  const SizedBox(height: 120), 
-                  Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
-                  const SizedBox(height: 16),
-                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
-                  
-                  // СИЛЬНО ОПУСКАЕМ БЛОК ПИН КОДА ЕЩЕ НИЖЕ
-                  const SizedBox(height: 180),
-                  
-                  Text(_isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w600, color: const Color(0xFF8A7370))),
-                  const SizedBox(height: 16),
+          // Абсолютно фиксированный текст, чтобы не прыгал
+          Positioned(
+            top: 170, left: 0, right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
+                const SizedBox(height: 16),
+                Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
+              ],
+            ),
+          ),
+          
+          // PIN Блок 
+          Positioned(
+            top: 450, left: 0, right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(_isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w600, color: const Color(0xFF8A7370))),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () => FocusScope.of(context).requestFocus(_focusNode),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(4, (index) {
+                      bool isFilled = index < pin.length;
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        width: 16, height: 16,
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, border: isFilled ? null : Border.all(color: const Color(0xFF3A2121), width: 0.75)),
+                      );
+                    }),
+                  ),
+                ),
+                if (!_isSetupMode) ...[
+                  const SizedBox(height: 24),
                   GestureDetector(
-                    onTap: () => FocusScope.of(context).requestFocus(_focusNode),
+                    onTap: _showFaceIdDialog,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(4, (index) {
-                        bool isFilled = index < pin.length;
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: 16, height: 16,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, border: isFilled ? null : Border.all(color: const Color(0xFF3A2121), width: 0.75)),
-                        );
-                      }),
+                      children: [
+                        SvgPicture.asset(
+                          'assets/svg/scan-face.svg',
+                          width: 24, height: 24,
+                          colorFilter: const ColorFilter.mode(Color(0xFFFF7A70), BlendMode.srcIn),
+                        ),
+                        const SizedBox(width: 8),
+                        Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
+                      ],
                     ),
                   ),
-                  if (!_isSetupMode) ...[
-                    const SizedBox(height: 24),
-                    GestureDetector(
-                      onTap: _showFaceIdDialog,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/svg/scan-face.svg',
-                            width: 24,
-                            height: 24,
-                            colorFilter: const ColorFilter.mode(Color(0xFFFF7A70), BlendMode.srcIn),
-                          ),
-                          const SizedBox(width: 8),
-                          Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
-                        ],
-                      ),
-                    ),
-                  ],
                 ],
-              ),
+              ],
             ),
           ),
           SizedBox(height: 0, width: 0, child: TextField(controller: _pinController, focusNode: _focusNode, keyboardType: TextInputType.number, inputFormatters: [FilteringTextInputFormatter.digitsOnly], maxLength: 4, onChanged: _onPinChanged, showCursor: false, style: const TextStyle(color: Colors.transparent), decoration: const InputDecoration(border: InputBorder.none, counterText: ''))),
