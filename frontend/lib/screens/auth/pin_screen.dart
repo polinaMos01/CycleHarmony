@@ -53,44 +53,82 @@ class _PinScreenState extends State<PinScreen> {
   void _showFaceIdDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white.withOpacity(0.9),
-        title: Column(
-          children: [
-            const Icon(Icons.face, size: 60, color: Color(0xFFC9594F)),
-            const SizedBox(height: 16),
-            Text('Face ID', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
-          ],
-        ),
-        content: Text(
-          'Разрешить Cycle Harmony использовать Face ID для быстрого входа?', 
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(),
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        actionsAlignment: MainAxisAlignment.spaceEvenly,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() { _pinController.clear(); _isSetupMode = false; });
-              FocusScope.of(context).requestFocus(_focusNode);
-            },
-            child: const Text('Позже', style: TextStyle(color: Colors.grey)),
+      builder: (context) => Dialog(
+        backgroundColor: const Color(0xFFF3F3F3),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Face ID',
+                style: GoogleFonts.inter(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF221F1F),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Разрешить Cycle Harmony использовать\nFace ID для быстрого входа?',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  height: 1.5,
+                  color: const Color(0xFF221F1F),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() { _pinController.clear(); _isSetupMode = false; });
+                      FocusScope.of(context).requestFocus(_focusNode);
+                    },
+                    style: TextButton.styleFrom(
+                      fixedSize: const Size(120, 50),
+                    ),
+                    child: Text(
+                      'Позже',
+                      style: GoogleFonts.merriweather(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF999999),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() { _pinController.clear(); _isSetupMode = false; });
+                      FocusScope.of(context).requestFocus(_focusNode);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFC9594F),
+                      fixedSize: const Size(140, 50),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Разрешить',
+                      style: GoogleFonts.merriweather(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() { _pinController.clear(); _isSetupMode = false; });
-              FocusScope.of(context).requestFocus(_focusNode);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFC9594F),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            ),
-            child: const Text('Разрешить', style: TextStyle(color: Colors.white)),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -101,10 +139,11 @@ class _PinScreenState extends State<PinScreen> {
     
     // ignore: avoid_unnecessary_containers
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Фон не сжимается при вызове клавиатуры
+      resizeToAvoidBottomInset: false,
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
-          // 1. Чистый фон гор
+          // 1. Чистый фон
           Positioned.fill(
             child: Image.asset(
               'assets/images/splash_bg.png',
@@ -112,7 +151,7 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
           
-          // 2. Белый блюр под текстом Cycle Harmony
+          // 2. Белый блюр (свечение)
           Positioned(
             top: 150,
             left: 0,
@@ -135,165 +174,188 @@ class _PinScreenState extends State<PinScreen> {
             ),
           ),
 
-          // 3. Левая веточка
-          Positioned(
-            left: -120, // В край влево
-            top: 130,
-            child: SvgPicture.asset(
-              'assets/svg/Object.svg',
-              width: 264,
-              clipBehavior: Clip.none,
+          // 3. Левая веточка (по точным координатам Splash -242, 135)
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(-242 / 2, 135.5 - 437), // Примерная конвертация SwiftUI -> Flutter
+              child: SvgPicture.asset(
+                'assets/svg/Object.svg',
+                width: 264,
+                clipBehavior: Clip.none,
+              ),
             ),
           ),
           
           // 4. Правая веточка
-          Positioned(
-            right: -60, // В край вправо
-            top: -20,
-            child: SvgPicture.asset(
-              'assets/svg/Object-1.svg',
-              width: 264,
-              clipBehavior: Clip.none,
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(453 / 2, 816.5 - 437),
+              child: SvgPicture.asset(
+                'assets/svg/Object-1.svg',
+                width: 264,
+                clipBehavior: Clip.none,
+              ),
             ),
           ),
 
-          // 5. Основной контент (Сдвинут вверх)
+          // DEV ТУМБЛЕР (оставляем сверху)
           SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // DEV ТУМБЛЕР
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: TextButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        _isSetupMode = !_isSetupMode;
-                        _pinController.clear();
-                      });
-                      FocusScope.of(context).requestFocus(_focusNode);
-                    },
-                    icon: const Icon(Icons.swap_horiz, color: Colors.black54),
-                    label: Text(
-                      _isSetupMode ? 'ДЕМO: "Создание" -> Сменить на "Вход"' 
-                                   : 'ДЕМO: "Вход" -> Сменить на "Создание"',
-                      style: const TextStyle(color: Colors.black54, fontSize: 12),
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 20),
-                
-                // Название приложения
-                Text(
-                  'Cycle Harmony',
-                  style: TextStyle(
-                    fontFamily: 'BoleroScript',
-                    fontSize: 49,
-                    color: const Color(0xFFC9594F),
-                  ),
-                ),
-                
-                const SizedBox(height: 16),
-                
-                // Подзаголовок
-                Text(
-                  'Понимай себя.\nСтрой гармоничные отношения.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    height: 21 / 14,
-                    color: const Color(0xFF6B5954),
-                  ),
-                ),
-                
-                const SizedBox(height: 40),
-                
-                // PIN Заголовок
-                Text(
-                  _isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код',
-                  style: GoogleFonts.manrope(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF8A7370), // rgb(0.54, 0.45, 0.44)
-                  ),
-                ),
-                
-                const SizedBox(height: 16),
-                
-                // PIN Индикаторы (4 точки)
-                GestureDetector(
-                  onTap: () {
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: TextButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isSetupMode = !_isSetupMode;
+                      _pinController.clear();
+                    });
                     FocusScope.of(context).requestFocus(_focusNode);
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(4, (index) {
-                      bool isFilled = index < pin.length;
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 16,
-                        height: 16,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isFilled ? const Color(0xFF3A2121) : Colors.transparent, // rgb(0.23, 0.13, 0.13)
-                          border: isFilled ? null : Border.all(
-                            color: const Color(0xFF3A2121),
-                            width: 0.75,
-                          ),
-                        ),
-                      );
-                    }),
+                  icon: const Icon(Icons.swap_horiz, color: Colors.black54),
+                  label: Text(
+                    _isSetupMode ? 'ДЕМO: "Создание" -> Сменить на "Вход"' 
+                                 : 'ДЕМO: "Вход" -> Сменить на "Создание"',
+                    style: const TextStyle(color: Colors.black54, fontSize: 12),
                   ),
                 ),
-                
-                const SizedBox(height: 24),
-                
-                // Кнопка Face ID
-                if (!_isSetupMode)
-                  GestureDetector(
-                    onTap: _showFaceIdDialog,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.face, size: 24, color: Color(0xFFFF7A70)), // rgb(1, 0.48, 0.44)
-                        const SizedBox(width: 8),
-                        Text(
-                          'Войти через Face ID',
-                          style: GoogleFonts.manrope(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFFFF7A70),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              ),
+            ),
+          ),
 
-                // Невидимое поле для нативной клавиатуры
-                SizedBox(
-                  height: 0,
-                  width: 0,
-                  child: TextField(
-                    controller: _pinController,
-                    focusNode: _focusNode,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    maxLength: 4,
-                    onChanged: _onPinChanged,
-                    showCursor: false,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    style: const TextStyle(color: Colors.transparent),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      counterText: '',
-                    ),
-                  ),
+          // --- ТОЧНЫЕ КООРДИНАТЫ ПО ЦЕНТРУ ИЗ SWIFTUI ---
+
+          // Заголовок Cycle Harmony (offset y: -194.50)
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(0, -194.50),
+              child: Text(
+                'Cycle Harmony',
+                style: TextStyle(
+                  fontFamily: 'BoleroScript',
+                  fontSize: 49,
+                  color: const Color(0xFFC9594F),
                 ),
-                
-                const Spacer(),
-              ],
+              ),
+            ),
+          ),
+
+          // Подзаголовок (offset y: -124)
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(0, -124),
+              child: Text(
+                'Понимай себя.\nСтрой гармоничные отношения.',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  height: 21 / 14,
+                  color: const Color(0xFF6B5954),
+                ),
+              ),
+            ),
+          ),
+
+          // PIN ГРУППА (offset y: 50.50)
+          Align(
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: const Offset(0, 50.50),
+              child: SizedBox(
+                width: 354, // из фрейма SwiftUI
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Заголовок ПИН
+                    Text(
+                      _isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код',
+                      style: GoogleFonts.manrope(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF8A7370), 
+                      ),
+                    ),
+                    const SizedBox(height: 16), // spacing 16
+                    
+                    // Кружочки
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(_focusNode);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(4, (index) {
+                          bool isFilled = index < pin.length;
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8), // половина spacing 16
+                            width: 16,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: isFilled ? const Color(0xFF3A2121) : Colors.transparent,
+                              border: isFilled ? null : Border.all(
+                                color: const Color(0xFF3A2121),
+                                width: 0.75,
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+
+                    // Кнопка Face ID
+                    if (!_isSetupMode) ...[
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: _showFaceIdDialog,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center, // Идеальное выравнивание
+                          children: [
+                            const SizedBox(width: 24, height: 24), // Имитация пустого ZStack 24x24 из SwiftUI
+                            const SizedBox(width: 8),
+                            Text(
+                              'Войти через Face ID',
+                              style: GoogleFonts.manrope(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFFFF7A70),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Скрытый TextField для нативной клавиатуры
+          SizedBox(
+            height: 0,
+            width: 0,
+            child: TextField(
+              controller: _pinController,
+              focusNode: _focusNode,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              maxLength: 4,
+              onChanged: _onPinChanged,
+              showCursor: false,
+              enableSuggestions: false,
+              autocorrect: false,
+              style: const TextStyle(color: Colors.transparent),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                counterText: '',
+              ),
             ),
           ),
         ],
