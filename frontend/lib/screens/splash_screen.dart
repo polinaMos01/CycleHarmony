@@ -87,32 +87,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
           // Левая веточка (Анимированная)
           Positioned(
-            left: -80, 
-            top: 180,
+            left: -120, // В край влево
+            top: 130,
             child: AnimatedOpacity(
               opacity: _opacityLeftBranch,
               duration: const Duration(milliseconds: 800),
               curve: Curves.easeOut,
               child: SvgPicture.asset(
-                'assets/svg/Object-1.svg',
+                'assets/svg/Object.svg', // Вернул Object.svg налево
                 width: 264,
-                clipBehavior: Clip.none, // Запрещаем SVG обрезать свои края
+                clipBehavior: Clip.none,
               ),
             ),
           ),
           
           // Правая веточка (Анимированная)
           Positioned(
-            right: -30, 
-            bottom: -20, 
+            right: -60, // В край вправо
+            top: -20, // Поднял наверх (ветка с синим цветком обычно сверху)
             child: AnimatedOpacity(
               opacity: _opacityRightBranch,
               duration: const Duration(milliseconds: 800),
               curve: Curves.easeOut,
               child: SvgPicture.asset(
-                'assets/svg/Object.svg',
+                'assets/svg/Object-1.svg', // Вернул Object-1.svg направо
                 width: 264,
-                clipBehavior: Clip.none, // Запрещаем SVG обрезать свои края
+                clipBehavior: Clip.none,
               ),
             ),
           ),
