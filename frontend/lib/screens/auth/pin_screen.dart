@@ -154,7 +154,7 @@ class _PinScreenState extends State<PinScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(width: 24, height: 24),
+                          const Icon(Icons.face_retouching_natural, size: 24, color: Color(0xFFFF7A70)),
                           const SizedBox(width: 8),
                           Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
                         ],
