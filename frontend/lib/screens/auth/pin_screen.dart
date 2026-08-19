@@ -154,7 +154,12 @@ class _PinScreenState extends State<PinScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.face_retouching_natural, size: 24, color: Color(0xFFFF7A70)),
+                          SvgPicture.asset(
+                            'assets/svg/scan-face.svg',
+                            width: 24,
+                            height: 24,
+                            colorFilter: const ColorFilter.mode(Color(0xFFFF7A70), BlendMode.srcIn),
+                          ),
                           const SizedBox(width: 8),
                           Text('Войти через Face ID', style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xFFFF7A70))),
                         ],
