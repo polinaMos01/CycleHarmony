@@ -140,7 +140,7 @@ class _PinScreenState extends State<PinScreen> {
             left: -130, // по макету
             top: 135,
             child: SvgPicture.asset(
-              'assets/svg/Object.svg',
+              'assets/svg/Object-1.svg',
               width: 264,
             ),
           ),
@@ -150,7 +150,7 @@ class _PinScreenState extends State<PinScreen> {
             right: -60,
             bottom: 50,
             child: SvgPicture.asset(
-              'assets/svg/Object-1.svg',
+              'assets/svg/Object.svg',
               width: 264,
             ),
           ),

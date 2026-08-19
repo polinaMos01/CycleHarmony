@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
             left: -80, 
             top: 180,
             child: SvgPicture.asset(
-              'assets/svg/Object.svg',
+              'assets/svg/Object-1.svg',
               width: 264,
             ),
           ),
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
             right: -30, 
             bottom: -20, 
             child: SvgPicture.asset(
-              'assets/svg/Object-1.svg',
+              'assets/svg/Object.svg',
               width: 264,
             ),
           ),
