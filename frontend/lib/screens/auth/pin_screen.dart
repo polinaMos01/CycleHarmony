@@ -12,7 +12,7 @@ class PinScreen extends StatefulWidget {
 
 class _PinScreenState extends State<PinScreen> {
   String _pin = '';
-  final bool _isSetupMode = true; // Для демо: true - установка, false - разблокировка
+  bool _isSetupMode = true; // Для переключения режимов
 
   void _onKeyPressed(String value) {
     if (_pin.length < 4) {
@@ -20,13 +20,15 @@ class _PinScreenState extends State<PinScreen> {
         _pin += value;
       });
       if (_pin.length == 4) {
-        // Если пин введен полностью
         Future.delayed(const Duration(milliseconds: 300), () {
           if (_isSetupMode) {
             _showFaceIdDialog();
           } else {
-            // Успешный вход
-            context.go('/role_selection');
+            // Имитация успешной разблокировки
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Успешный вход!')),
+            );
+            setState(() { _pin = ''; });
           }
         });
       }
@@ -45,27 +47,39 @@ class _PinScreenState extends State<PinScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Использовать Face ID?', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
-        content: Text('Входить в приложение по лицу намного быстрее и безопаснее.', style: GoogleFonts.inter()),
+        backgroundColor: Colors.white.withOpacity(0.9),
+        title: Column(
+          children: [
+            const Icon(Icons.face, size: 60, color: Color(0xFFC9594F)),
+            const SizedBox(height: 16),
+            Text('Face ID', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: Text(
+          'Разрешить Cycle Harmony использовать Face ID для быстрого входа?', 
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(),
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              context.go('/role_selection'); // Продолжаем дальше
+              setState(() { _pin = ''; _isSetupMode = false; });
             },
             child: const Text('Позже', style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              context.go('/role_selection');
+              setState(() { _pin = ''; _isSetupMode = false; });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFC9594F),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            child: const Text('Включить', style: TextStyle(color: Colors.white)),
+            child: const Text('Разрешить', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -77,21 +91,11 @@ class _PinScreenState extends State<PinScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Фон с запеченным текстом (блюрим его)
+          // Чистый фон гор (без цветочного экрана)
           Positioned.fill(
             child: Image.asset(
-              'assets/images/01-lock-screen.png',
+              'assets/images/splash_bg.png',
               fit: BoxFit.cover,
-            ),
-          ),
-          
-          // Эффект матового стекла, чтобы скрыть старый текст на картинке
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-              child: Container(
-                color: Colors.white.withOpacity(0.3), // Легкое осветление
-              ),
             ),
           ),
           
@@ -99,11 +103,30 @@ class _PinScreenState extends State<PinScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 80),
+                // DEV ТУМБЛЕР (Чтобы показать оба экрана)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: TextButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        _isSetupMode = !_isSetupMode;
+                        _pin = '';
+                      });
+                    },
+                    icon: const Icon(Icons.swap_horiz, color: Colors.black54),
+                    label: Text(
+                      _isSetupMode ? 'ДЕМO: Сейчас "Создание ПИН" -> Сменить на "Вход"' 
+                                   : 'ДЕМO: Сейчас "Вход" -> Сменить на "Создание"',
+                      style: const TextStyle(color: Colors.black54, fontSize: 12),
+                    ),
+                  ),
+                ),
+                
+                const SizedBox(height: 40),
                 
                 // Заголовок
                 Text(
-                  _isSetupMode ? 'Установите PIN-код' : 'Введите PIN-код',
+                  _isSetupMode ? 'Создайте PIN-код' : 'Введите PIN-код',
                   style: GoogleFonts.inter(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -114,7 +137,7 @@ class _PinScreenState extends State<PinScreen> {
                 const SizedBox(height: 12),
                 
                 Text(
-                  _isSetupMode ? 'Для защиты ваших данных' : '',
+                  _isSetupMode ? 'Для защиты ваших данных' : ' ',
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     color: const Color(0xFF6B5954).withOpacity(0.7),
@@ -123,7 +146,7 @@ class _PinScreenState extends State<PinScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // PIN indicators (кружочки)
+                // PIN indicators
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(4, (index) {
@@ -146,7 +169,7 @@ class _PinScreenState extends State<PinScreen> {
                 
                 const Spacer(),
                 
-                // Numpad (Клавиатура)
+                // Numpad (Glassmorphism Кнопки)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
                   child: GridView.builder(
@@ -161,40 +184,46 @@ class _PinScreenState extends State<PinScreen> {
                     itemCount: 12,
                     itemBuilder: (context, index) {
                       if (index == 9) {
-                        // Кнопка Face ID
                         return IconButton(
                           icon: const Icon(Icons.face_unlock_rounded, size: 36, color: Color(0xFF6B5954)),
                           onPressed: () {
                             if (!_isSetupMode) {
-                              context.go('/role_selection');
+                              _showFaceIdDialog();
                             }
                           },
                         );
                       }
                       if (index == 11) {
-                        // Кнопка Backspace
                         return IconButton(
                           icon: const Icon(Icons.backspace_outlined, size: 28, color: Color(0xFF6B5954)),
                           onPressed: _onBackspacePressed,
                         );
                       }
                       
-                      // Цифры 1-9 и 0
                       int number = index == 10 ? 0 : index + 1;
                       return GestureDetector(
                         onTap: () => _onKeyPressed(number.toString()),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withOpacity(0.4),
-                          ),
-                          child: Center(
-                            child: Text(
-                              number.toString(),
-                              style: GoogleFonts.inter(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xFF6B5954),
+                        child: ClipOval(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.2), // Глассморфизм прозрачность
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.5), // Светлая каемка
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  number.toString(),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFF6B5954),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -203,6 +232,18 @@ class _PinScreenState extends State<PinScreen> {
                     },
                   ),
                 ),
+                
+                if (!_isSetupMode) ...[
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Забыли ПИН-код?',
+                      style: TextStyle(color: const Color(0xFFC9594F), fontSize: 16),
+                    ),
+                  ),
+                ] else ...[
+                  const SizedBox(height: 48), // Место под кнопку, чтобы не прыгало
+                ],
                 const SizedBox(height: 20),
               ],
             ),
