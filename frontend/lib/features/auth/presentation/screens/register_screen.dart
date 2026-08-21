@@ -101,7 +101,7 @@ class RegisterScreen extends StatelessWidget {
                                   style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
-                                      text: 'ВОЙТИ',
+                                      text: 'Войти',
                                       style: TextStyle(fontFamily: "PTRootUI", 
                                         color: const Color(0xFFF7ADAF),
                                         fontWeight: FontWeight.bold,

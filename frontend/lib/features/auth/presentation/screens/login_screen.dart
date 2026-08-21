@@ -98,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                                   style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
-                                      text: 'РЕГИСТРАЦИЯ',
+                                      text: 'Регистрация',
                                       style: TextStyle(fontFamily: "PTRootUI", 
                                         color: const Color(0xFFF7ADAF),
                                         fontWeight: FontWeight.bold,
