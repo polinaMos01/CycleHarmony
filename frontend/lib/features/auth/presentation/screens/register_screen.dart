@@ -47,28 +47,7 @@ class RegisterScreen extends StatelessWidget {
                           const SizedBox(height: 24),
                           const _PasswordField(label: 'ПОВТОРИТЕ ПАРОЛЬ', placeholder: '••••••••••••'),
                           const SizedBox(height: 32),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: const Color(0xFFE0E0E0)),
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Colors.white.withOpacity(0.2),
-                                ),
-                                child: const Icon(Icons.check, size: 16, color: Color(0xFFFF7A70)),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  'Согласен с условиями использования и конфиденциальности',
-                                  style: GoogleFonts.manrope(fontSize: 12, color: const Color(0xFF8A7370)),
-                                ),
-                              ),
-                            ],
-                          ),
+                          const _TermsCheckbox(),
                           const Spacer(flex: 2),
                           Container(
                             width: double.infinity,
