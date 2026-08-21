@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RoleSelectionScreen extends StatefulWidget {
   const RoleSelectionScreen({super.key});
@@ -64,7 +65,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                           child: _RoleCard(
                             title: 'Девушка',
                             description: 'отслеживание менструации, симптомов и настроения',
-                            icon: Icons.favorite_border,
+                            icon: 'assets/svg/solar_women-broken.svg',
                             isSelected: _selectedRole == 0,
                             onTap: () => setState(() => _selectedRole = 0),
                           ),
@@ -74,7 +75,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                           child: _RoleCard(
                             title: 'Партнёр',
                             description: 'наблюдение за циклом партнёрши, полезные советы',
-                            icon: Icons.person_outline,
+                            icon: 'assets/svg/solar_men-broken.svg',
                             isSelected: _selectedRole == 1,
                             onTap: () => setState(() => _selectedRole = 1),
                           ),
@@ -123,7 +124,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
 class _RoleCard extends StatelessWidget {
   final String title;
   final String description;
-  final IconData icon;
+  final String icon;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -178,6 +179,8 @@ class _RoleCard extends StatelessWidget {
                   : null,
             ),
             const Spacer(),
+            SvgPicture.asset(icon, width: 32, height: 32, colorFilter: const ColorFilter.mode(Color(0xFFCC594F), BlendMode.srcIn)),
+            const SizedBox(height: 12),
             Text(
               title,
               style: const TextStyle(
