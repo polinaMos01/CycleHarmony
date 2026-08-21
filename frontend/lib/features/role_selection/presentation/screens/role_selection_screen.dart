@@ -15,17 +15,11 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
 
   void _onContinue() {
     if (_selectedRole == 0) {
-      // Girl -> Authorization
-      // context.go('/auth'); // TODO: Create auth screen
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Переход на Авторизацию')),
-      );
+      // Girl -> Registration
+      context.go('/register');
     } else {
       // Partner -> Scanning
-      // context.go('/scanning'); // TODO: Create scanning screen
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Переход на Сканирование')),
-      );
+      context.go('/scanning');
     }
   }
 
@@ -76,11 +70,10 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
                       child: _RoleCard(
                         title: 'Девушка',
                         subtitle: 'Отслеживание цикла, дневник и аналитика',

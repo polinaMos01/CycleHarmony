@@ -6,6 +6,9 @@ import 'package:frontend/features/auth/presentation/screens/pin_screen.dart';
 import 'package:frontend/features/language/presentation/screens/language_screen.dart';
 import 'package:frontend/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:frontend/features/role_selection/presentation/screens/role_selection_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/register_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/login_screen.dart';
+import 'package:frontend/features/pairing/presentation/screens/scanning_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -29,6 +32,18 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/role_selection',
       builder: (context, state) => const RoleSelectionScreen(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/scanning',
+      builder: (context, state) => const ScanningScreen(),
     ),
   ],
 );
