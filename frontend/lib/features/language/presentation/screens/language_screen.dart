@@ -85,28 +85,15 @@ class _LanguageScreenState extends State<LanguageScreen> {
             left: 0,
             right: 0,
             child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  // Переход на следующий экран (Выбор роли)
-                  context.push('/role_selection');
-                },
-                child: Container(
-                  width: 329,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF7ADAF), // Color(red: 0.97, green: 0.68, blue: 0.69)
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'ДАЛЕЕ',
-                    style: GoogleFonts.lora(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFFFDFAF5), // Color(red: 0.99, green: 0.98, blue: 0.96)
-                      letterSpacing: 1.0,
-                    ),
-                  ),
+              child: SizedBox(
+                width: 329,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Переход на следующий экран (Выбор роли)
+                    context.push('/role_selection');
+                  },
+                  child: const Text('ДАЛЕЕ'),
                 ),
               ),
             ),

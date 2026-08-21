@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   // --- ЦВЕТОВАЯ ПАЛИТРА CYCLE HARMONY ---
   static const Color coralPrimary = Color(0xFFFF7A70); // Галочка выбора, акценты
-  static const Color buttonPink = Color(0xFFF7ADAF); // Кнопка "ДАЛЕЕ"
+  static const Color buttonPink = Color(0xFFFF7A70); // Кнопка "ДАЛЕЕ"
   static const Color buttonText = Color(0xFFFDFAF5); // Текст на кнопке "ДАЛЕЕ"
   static const Color textDarkBrown = Color(0xFF40261F); // Активный текст ("Русский")
   static const Color textLightBrown = Color(0xFF8A7370); // Неактивный текст ("Russian")
