@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ScanningScreen extends StatelessWidget {
   const ScanningScreen({super.key});
@@ -32,9 +33,9 @@ class ScanningScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Сканируйте QR-код или введите ссылку приглашения',
-                style: TextStyle(fontFamily: 'Manrope', fontSize: 14, color: Color(0xFF5C6E7D), height: 1.4),
+                style: GoogleFonts.manrope(fontSize: 14, color: const Color(0xFF5C6E7D), height: 1.4),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -52,18 +53,18 @@ class ScanningScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Наведите камеру на QR-код',
-                style: TextStyle(fontFamily: 'Manrope', fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF5C6E7D)),
+                style: GoogleFonts.manrope(fontSize: 13, fontWeight: FontWeight.w500, color: const Color(0xFF5C6E7D)),
               ),
               const SizedBox(height: 32),
               // OR divider
               Row(
                 children: [
                   const Expanded(child: Divider(color: Color(0xFFD1D9E3))),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('или', style: TextStyle(fontFamily: 'Manrope', fontSize: 14, color: Color(0xFF8C9BA6))),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('или', style: GoogleFonts.manrope(fontSize: 14, color: const Color(0xFF8C9BA6))),
                   ),
                   const Expanded(child: Divider(color: Color(0xFFD1D9E3))),
                 ],
@@ -78,44 +79,60 @@ class ScanningScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFD1D9E3)),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
                     Expanded(
                       child: TextField(
+                        style: GoogleFonts.manrope(fontSize: 15, color: const Color(0xFF1A2B3B)),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Вставьте ссылку приглашения',
-                          hintStyle: TextStyle(fontFamily: 'Manrope', fontSize: 15, color: Color(0xFF9BAFC1)),
+                          hintStyle: GoogleFonts.manrope(fontSize: 15, color: const Color(0xFF9BAFC1)),
                         ),
                       ),
                     ),
-                    Icon(Icons.link, color: Color(0xFF3B6B8C)),
+                    const Icon(Icons.link, color: Color(0xFF3B6B8C)),
                   ],
                 ),
               ),
               const SizedBox(height: 24),
-              SizedBox(
+              Container(
                 width: double.infinity,
                 height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [Color(0xFF9ABAE1), Color(0xFF678BB7)], // Blue gradient
+                  ),
+                ),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7D9FCA), // Blue button
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    elevation: 0,
                   ),
-                  child: const Text('РЕДАКТИРОВАТЬ', style: TextStyle(fontFamily: 'Lora', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
+                  child: Text('РЕДАКТИРОВАТЬ', style: GoogleFonts.lora(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
                 ),
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Ввести код вручную',
-                style: TextStyle(
-                  fontFamily: 'Manrope',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF3B6B8C),
-                  decoration: TextDecoration.underline,
+              GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Ввод кода вручную (экран в разработке)')),
+                  );
+                },
+                child: Text(
+                  'Ввести код вручную',
+                  style: GoogleFonts.manrope(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF3B6B8C),
+                    decoration: TextDecoration.underline,
+                    decorationColor: const Color(0xFF3B6B8C),
+                  ),
                 ),
               ),
             ],
