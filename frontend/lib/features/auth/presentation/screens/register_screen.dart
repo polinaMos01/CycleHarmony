@@ -10,10 +10,11 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFFFFDBD4),
-          image: DecorationImage(
-            image: AssetImage('assets/images/role_selection_bg.png'),
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFFDBD4), Colors.white],
+            stops: [0.0, 0.5],
           ),
         ),
         child: SafeArea(
