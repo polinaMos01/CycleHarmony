@@ -81,11 +81,11 @@ class LoginScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _buildSocialIcon('assets/svg/vk.svg'),
+                              _buildSocialIcon('assets/svg/uil_vk.svg'),
                               const SizedBox(width: 16),
-                              _buildSocialIcon('assets/svg/apple.svg'),
+                              _buildSocialIcon('assets/svg/ic_twotone-apple.svg'),
                               const SizedBox(width: 16),
-                              _buildSocialIcon('assets/svg/google.svg'),
+                              _buildSocialIcon('assets/svg/uim_google.svg'),
                             ],
                           ),
                           const SizedBox(height: 40),
