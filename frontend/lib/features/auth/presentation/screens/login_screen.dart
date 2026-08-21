@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -30,23 +32,23 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              alignment: Alignment.centerLeft,
-                              icon: const Icon(Icons.arrow_back, color: Color(0xFFCC594F)),
-                              onPressed: () => context.pop(), // This works now because we used push()
-                            ),
+                            child: _buildBackButton(context, '/register'),
                           ),
                           const SizedBox(height: 10),
                           const Text(
                             'Вход',
                             style: TextStyle(fontFamily: 'BoleroScript', fontSize: 48, color: Color(0xFFCC594F)),
                           ),
-                          const Spacer(flex: 1), // Push form to center
+                          const Spacer(flex: 1),
                           _buildField('Email', 'name@domain.com'),
                           const SizedBox(height: 24),
-                          _buildField('Пароль', '••••••••••••', isPassword: true, trailingText: 'Забыли пароль?'),
-                          const Spacer(flex: 2), // Push button to bottom
+                          _PasswordField(
+                            label: 'Пароль',
+                            placeholder: '••••••••••••',
+                            trailingText: 'Забыли пароль?',
+                            onTrailingTap: () => context.go('/forgot_password'),
+                          ),
+                          const Spacer(flex: 2),
                           Container(
                             width: double.infinity,
                             height: 48,
@@ -65,39 +67,44 @@ class LoginScreen extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                               ),
-                              child: const Text('ВОЙТИ', style: TextStyle(fontFamily: 'Lora', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text('Войти', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 32),
-                          const Center(
+                          Center(
                             child: Text(
                               'или продолжить с помощью',
-                              style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xFF919191)),
+                              style: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF919191)),
                             ),
                           ),
                           const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _buildSocialIcon(Icons.apple),
+                              _buildSocialIcon('assets/svg/vk.svg'),
                               const SizedBox(width: 16),
-                              _buildSocialIcon(Icons.g_mobiledata),
+                              _buildSocialIcon('assets/svg/apple.svg'),
                               const SizedBox(width: 16),
-                              _buildSocialIcon(Icons.facebook),
+                              _buildSocialIcon('assets/svg/google.svg'),
                             ],
                           ),
                           const SizedBox(height: 40),
                           Center(
                             child: GestureDetector(
-                              onTap: () => context.pop(), // Go back to register
-                              child: const Text.rich(
+                              onTap: () => context.go('/register'),
+                              child: Text.rich(
                                 TextSpan(
                                   text: 'Ещё не зарегистрированы? ',
-                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xFF919191)),
+                                  style: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
                                       text: 'Регистрация',
-                                      style: TextStyle(color: Color(0xFFF7ADAF), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xFFF7ADAF),
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: const Color(0xFFF7ADAF),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -118,47 +125,51 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildField(String label, String placeholder, {bool isPassword = false, String? trailingText}) {
+  Widget _buildBackButton(BuildContext context, String route) {
+    return InkWell(
+      onTap: () => context.go(route),
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7ADAF).withOpacity(0.2),
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(Icons.arrow_back, color: Color(0xFFCC594F), size: 20),
+      ),
+    );
+  }
+
+  Widget _buildField(String label, String placeholder) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label.toUpperCase(),
-              style: const TextStyle(fontFamily: 'Inter', fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFFF7A70)),
-            ),
-            if (trailingText != null)
-              Text(
-                trailingText,
-                style: const TextStyle(fontFamily: 'Inter', fontSize: 12, color: Color(0xFF3B2121), decoration: TextDecoration.underline),
-              ),
-          ],
+        Text(
+          label.toUpperCase(),
+          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
         ),
         const SizedBox(height: 8),
         TextField(
-          obscureText: isPassword,
-          style: const TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xFF2E2422)),
+          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
           decoration: InputDecoration(
             hintText: placeholder,
-            hintStyle: TextStyle(fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
             focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
             isDense: true,
             contentPadding: const EdgeInsets.only(bottom: 8),
-            suffixIcon: isPassword ? const Icon(Icons.visibility_outlined, color: Color(0xFFAB858F), size: 20) : null,
-            suffixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSocialIcon(IconData icon) {
+  Widget _buildSocialIcon(String asset) {
     return Container(
       width: 48,
       height: 48,
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: const LinearGradient(
@@ -167,7 +178,75 @@ class LoginScreen extends StatelessWidget {
           colors: [Color(0xFFF7ADAF), Color(0xFFFF958F)],
         ),
       ),
-      child: Icon(icon, color: Colors.white, size: 30),
+      child: SvgPicture.asset(asset, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn)),
+    );
+  }
+}
+
+class _PasswordField extends StatefulWidget {
+  final String label;
+  final String placeholder;
+  final String? trailingText;
+  final VoidCallback? onTrailingTap;
+
+  const _PasswordField({required this.label, required this.placeholder, this.trailingText, this.onTrailingTap});
+
+  @override
+  State<_PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<_PasswordField> {
+  bool _obscure = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.label.toUpperCase(),
+              style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
+            ),
+            if (widget.trailingText != null)
+              GestureDetector(
+                onTap: widget.onTrailingTap,
+                child: Text(
+                  widget.trailingText!,
+                  style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFF3B2121), decoration: TextDecoration.underline, decorationColor: const Color(0xFF3B2121)),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          obscureText: _obscure,
+          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
+          decoration: InputDecoration(
+            hintText: widget.placeholder,
+            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
+            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
+            isDense: true,
+            contentPadding: const EdgeInsets.only(bottom: 8),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscure = !_obscure;
+                });
+              },
+              child: Icon(
+                _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                color: const Color(0xFFAB858F),
+                size: 20,
+              ),
+            ),
+            suffixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:frontend/features/onboarding/presentation/screens/onboarding_scr
 import 'package:frontend/features/role_selection/presentation/screens/role_selection_screen.dart';
 import 'package:frontend/features/auth/presentation/screens/register_screen.dart';
 import 'package:frontend/features/auth/presentation/screens/login_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:frontend/features/pairing/presentation/screens/scanning_screen.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -40,6 +41,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/forgot_password',
+      builder: (context, state) => const ForgotPasswordScreen(),
     ),
     GoRoute(
       path: '/scanning',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -30,26 +31,21 @@ class RegisterScreen extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              alignment: Alignment.centerLeft,
-                              icon: const Icon(Icons.arrow_back, color: Color(0xFFCC594F)),
-                              onPressed: () => context.go('/role_selection'),
-                            ),
+                            child: _buildBackButton(context, '/role_selection'),
                           ),
                           const SizedBox(height: 10),
                           const Text(
                             'Регистрация',
                             style: TextStyle(fontFamily: 'BoleroScript', fontSize: 48, color: Color(0xFFCC594F)),
                           ),
-                          const Spacer(flex: 1), // Push form to center
+                          const Spacer(flex: 1),
                           _buildField('ИМЯ', 'Введите ваше имя'),
                           const SizedBox(height: 24),
                           _buildField('Email', 'name@domain.com'),
                           const SizedBox(height: 24),
-                          _buildField('Пароль', '••••••••••••', isPassword: true),
+                          const _PasswordField(label: 'Пароль', placeholder: '••••••••••••'),
                           const SizedBox(height: 24),
-                          _buildField('ПОВТОРИТЕ ПАРОЛЬ', '••••••••••••', isPassword: true),
+                          const _PasswordField(label: 'ПОВТОРИТЕ ПАРОЛЬ', placeholder: '••••••••••••'),
                           const SizedBox(height: 32),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,15 +61,15 @@ class RegisterScreen extends StatelessWidget {
                                 child: const Icon(Icons.check, size: 16, color: Color(0xFFFF7A70)),
                               ),
                               const SizedBox(width: 10),
-                              const Expanded(
+                              Expanded(
                                 child: Text(
                                   'Согласен с условиями использования и конфиденциальности',
-                                  style: TextStyle(fontFamily: 'Manrope', fontSize: 12, color: Color(0xFF8A7370)),
+                                  style: GoogleFonts.manrope(fontSize: 12, color: const Color(0xFF8A7370)),
                                 ),
                               ),
                             ],
                           ),
-                          const Spacer(flex: 2), // Push button to bottom
+                          const Spacer(flex: 2),
                           Container(
                             width: double.infinity,
                             height: 48,
@@ -92,21 +88,26 @@ class RegisterScreen extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                               ),
-                              child: const Text('РЕГИСТРАЦИЯ', style: TextStyle(fontFamily: 'Lora', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text('Регистрация', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 32),
                           Center(
                             child: GestureDetector(
-                              onTap: () => context.push('/login'),
-                              child: const Text.rich(
+                              onTap: () => context.go('/login'),
+                              child: Text.rich(
                                 TextSpan(
                                   text: 'Уже есть аккаунт? ',
-                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xFF919191)),
+                                  style: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
                                       text: 'Войти',
-                                      style: TextStyle(color: Color(0xFFF7ADAF), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xFFF7ADAF),
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: const Color(0xFFF7ADAF),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -127,26 +128,92 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildField(String label, String placeholder, {bool isPassword = false}) {
+  Widget _buildBackButton(BuildContext context, String route) {
+    return InkWell(
+      onTap: () => context.go(route),
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7ADAF).withOpacity(0.2),
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(Icons.arrow_back, color: Color(0xFFCC594F), size: 20),
+      ),
+    );
+  }
+
+  Widget _buildField(String label, String placeholder) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label.toUpperCase(),
-          style: const TextStyle(fontFamily: 'Inter', fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFFF7A70)),
+          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
         ),
         const SizedBox(height: 8),
         TextField(
-          obscureText: isPassword,
-          style: const TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xFF2E2422)),
+          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
           decoration: InputDecoration(
             hintText: placeholder,
-            hintStyle: TextStyle(fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
             focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
             isDense: true,
             contentPadding: const EdgeInsets.only(bottom: 8),
-            suffixIcon: isPassword ? const Icon(Icons.visibility_outlined, color: Color(0xFFAB858F), size: 20) : null,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PasswordField extends StatefulWidget {
+  final String label;
+  final String placeholder;
+
+  const _PasswordField({required this.label, required this.placeholder});
+
+  @override
+  State<_PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<_PasswordField> {
+  bool _obscure = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.label.toUpperCase(),
+          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          obscureText: _obscure,
+          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
+          decoration: InputDecoration(
+            hintText: widget.placeholder,
+            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
+            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
+            isDense: true,
+            contentPadding: const EdgeInsets.only(bottom: 8),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscure = !_obscure;
+                });
+              },
+              child: Icon(
+                _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                color: const Color(0xFFAB858F),
+                size: 20,
+              ),
+            ),
             suffixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
           ),
         ),
