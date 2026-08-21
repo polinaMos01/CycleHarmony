@@ -38,48 +38,17 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   void _showFaceIdDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        backgroundColor: const Color(0xFFF3F3F3),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Face ID', style: GoogleFonts.inter(fontSize: 28, fontWeight: FontWeight.w700, color: const Color(0xFF221F1F))),
-              const SizedBox(height: 16),
-              Text('Разрешить Cycle Harmony использовать\nFace ID для быстрого входа?', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 15, height: 1.5, color: const Color(0xFF221F1F))),
-              const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      setState(() { _pinController.clear(); _isSetupMode = false; });
-                      FocusScope.of(context).requestFocus(_focusNode);
-                    },
-                    style: TextButton.styleFrom(fixedSize: const Size(120, 50)),
-                    child: Text('Позже', style: GoogleFonts.merriweather(fontSize: 18, fontWeight: FontWeight.w600, color: const Color(0xFF999999))),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      setState(() { _pinController.clear(); _isSetupMode = false; });
-                      FocusScope.of(context).requestFocus(_focusNode);
-                    },
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFC9594F), fixedSize: const Size(140, 50), elevation: 0, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                    child: Text('Разрешить', style: GoogleFonts.merriweather(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    // В реальном приложении здесь будет вызываться нативный системный Face ID / Touch ID (пакет local_auth),
+    // который отрисовывается самой операционной системой (iOS / Android), а не нашими виджетами.
+    // Для демо на вебе мы просто имитируем успешное завершение настройки.
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Вызван системный нативный Face ID (iOS/Android)'), duration: Duration(seconds: 2)),
     );
+    
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() { _pinController.clear(); _isSetupMode = false; });
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
   }
 
   @override
