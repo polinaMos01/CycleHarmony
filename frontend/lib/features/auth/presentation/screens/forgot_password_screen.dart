@@ -31,17 +31,16 @@ class ForgotPasswordScreen extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: InkWell(
+                            child: GestureDetector(
                               onTap: () => context.go('/login'),
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF7ADAF).withOpacity(0.2),
-                                  shape: BoxShape.circle,
+                              child: Text(
+                                '←   Назад',
+                                style: TextStyle(
+                                  fontFamily: 'PTRootUI',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF3B2121),
                                 ),
-                                child: const Icon(Icons.arrow_back, color: Color(0xFFCC594F), size: 20),
                               ),
                             ),
                           ),
