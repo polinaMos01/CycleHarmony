@@ -27,7 +27,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      context.push('/role_selection'); // After onboarding, go to role selection (or login)
+      // Здесь будет переход на экран регистрации/входа
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Дальше будет экран Регистрации/Входа (в разработке)')),
+      );
     }
   }
 
