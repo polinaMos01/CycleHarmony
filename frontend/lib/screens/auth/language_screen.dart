@@ -1,64 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class LanguageScreen extends StatelessWidget {
+class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
+
+  @override
+  State<LanguageScreen> createState() => _LanguageScreenState();
+}
+
+class _LanguageScreenState extends State<LanguageScreen> {
+  int _selectedIndex = 0; // 0: Русский, 1: English, 2: Монгольский
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFFCF3EE), 
-                  Color(0xFFF9E8E2),
+          // Фон
+          Positioned.fill(
+            child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover),
+          ),
+
+          // Правая веточка
+          Positioned(
+            right: -60,
+            bottom: -50,
+            child: SvgPicture.asset('assets/svg/Object.svg', width: 280, clipBehavior: Clip.none),
+          ),
+
+          // Заголовок
+          Positioned(
+            top: 170,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                'Cycle Harmony',
+                style: TextStyle(
+                  fontFamily: 'BoleroScript',
+                  fontSize: 49,
+                  color: const Color(0xFFC9594F),
+                ),
+              ),
+            ),
+          ),
+
+          // Список языков
+          Positioned(
+            top: 300,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: [
+                  _buildLanguageOption(
+                    index: 0,
+                    title: 'Русский',
+                    subtitle: 'Russian',
+                  ),
+                  const SizedBox(height: 16),
+                  _buildLanguageOption(
+                    index: 1,
+                    title: 'English',
+                    subtitle: 'English',
+                  ),
+                  const SizedBox(height: 16),
+                  _buildLanguageOption(
+                    index: 2,
+                    title: 'Монгольский',
+                    subtitle: 'Mongolian',
+                  ),
                 ],
               ),
             ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 60),
-                  Text(
-                    'Выберите язык',
-                    style: Theme.of(context).textTheme.displayLarge,
-                    textAlign: TextAlign.center,
+
+          // Кнопка ДАЛЕЕ
+          Positioned(
+            bottom: 100,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  // Переход на следующий экран (Выбор роли)
+                  context.push('/role_selection');
+                },
+                child: Container(
+                  width: 329,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF7ADAF), // Color(red: 0.97, green: 0.68, blue: 0.69)
+                    borderRadius: BorderRadius.circular(24),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Вы всегда сможете изменить его в настройках профиля',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const Spacer(),
-                  _buildLanguageButton(context, 'Русский', true),
-                  const SizedBox(height: 16),
-                  _buildLanguageButton(context, 'English', false),
-                  const Spacer(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.push('/pin');
-                      },
-                      child: Text(
-                        'ПРОДОЛЖИТЬ',
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'ДАЛЕЕ',
+                    style: GoogleFonts.lora(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFFFDFAF5), // Color(red: 0.99, green: 0.98, blue: 0.96)
+                      letterSpacing: 1.0,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                ],
+                ),
               ),
             ),
           ),
@@ -67,32 +116,69 @@ class LanguageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLanguageButton(BuildContext context, String title, bool isSelected) {
+  Widget _buildLanguageOption({required int index, required String title, required String subtitle}) {
+    bool isSelected = _selectedIndex == index;
+
     return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
+          color: isSelected ? Colors.white.withOpacity(0.85) : Colors.white.withOpacity(0.70),
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? Theme.of(context).primaryColor : Colors.black12,
-            width: 1.5,
+            color: isSelected ? const Color(0xFFFFEBE8) : const Color(0xFFFDF2EF),
+            width: isSelected ? 0.75 : 0.50,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFCC594F).withOpacity(isSelected ? 0.10 : 0.03),
+              blurRadius: isSelected ? 20 : 12,
+              offset: Offset(0, isSelected ? 6 : 4),
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? Theme.of(context).primaryColor : Colors.black54,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.manrope(
+                    fontSize: 16,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                    color: isSelected ? const Color(0xFF40261F) : const Color(0xFF6B5954),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.manrope(
+                    fontSize: 12,
+                    color: const Color(0xFF8A7370),
+                  ),
+                ),
+              ],
             ),
-            if (isSelected)
-              Icon(Icons.check_circle, color: Theme.of(context).primaryColor),
+            Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isSelected ? const Color(0xFFFF7A70) : Colors.transparent,
+                border: isSelected ? null : Border.all(color: const Color(0xFFD6CCCE), width: 0.75),
+              ),
+              child: isSelected
+                  ? const Icon(Icons.check, size: 16, color: Colors.white)
+                  : null,
+            ),
           ],
         ),
       ),

@@ -29,7 +29,7 @@ class _PinScreenState extends State<PinScreen> {
           _showFaceIdDialog();
         } else {
           _pinController.clear();
-          setState(() {});
+          context.push('/language');
         }
       });
     }
