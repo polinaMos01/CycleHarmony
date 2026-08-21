@@ -76,9 +76,11 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                Row(
-                  children: [
-                    Expanded(
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
                       child: _RoleCard(
                         title: 'Девушка',
                         subtitle: 'Отслеживание цикла, дневник и аналитика',
@@ -171,7 +173,6 @@ class _RoleCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 180, // match proportions
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
