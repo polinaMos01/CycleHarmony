@@ -66,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                               ),
-                              child: Text('Войти', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text('ВОЙТИ', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 32),
@@ -97,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                                   style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
-                                      text: 'Регистрация',
+                                      text: 'РЕГИСТРАЦИЯ',
                                       style: TextStyle(fontFamily: "PTRootUI", 
                                         color: const Color(0xFFF7ADAF),
                                         fontWeight: FontWeight.bold,

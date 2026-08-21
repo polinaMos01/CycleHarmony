@@ -69,13 +69,30 @@ class ForgotPasswordScreen extends StatelessWidget {
                               ),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Успешно', style: TextStyle(fontFamily: 'PTRootUI', fontWeight: FontWeight.bold)),
+                                    content: const Text('Ссылка для сброса пароля успешно отправлена на вашу почту.', style: TextStyle(fontFamily: 'PTRootUI')),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          context.go('/login');
+                                        },
+                                        child: const Text('ОК', style: TextStyle(color: Color(0xFFCC594F))),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                               ),
-                              child: Text('Отправить ссылку', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text('ОТПРАВИТЬ ССЫЛКУ', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 32),

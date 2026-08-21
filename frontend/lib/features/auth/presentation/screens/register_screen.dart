@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            'Регистрация',
+                            'РЕГИСТРАЦИЯ',
                             style: TextStyle(fontFamily: 'BoleroScript', fontSize: 48, color: Color(0xFFCC594F)),
                           ),
                           const Spacer(flex: 1),
@@ -87,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                               ),
-                              child: Text('Регистрация', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text('РЕГИСТРАЦИЯ', style: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 32),
@@ -100,7 +100,7 @@ class RegisterScreen extends StatelessWidget {
                                   style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
-                                      text: 'Войти',
+                                      text: 'ВОЙТИ',
                                       style: TextStyle(fontFamily: "PTRootUI", 
                                         color: const Color(0xFFF7ADAF),
                                         fontWeight: FontWeight.bold,
