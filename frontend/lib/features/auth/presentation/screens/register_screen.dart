@@ -221,3 +221,47 @@ class _PasswordFieldState extends State<_PasswordField> {
     );
   }
 }
+
+class _TermsCheckbox extends StatefulWidget {
+  const _TermsCheckbox();
+
+  @override
+  State<_TermsCheckbox> createState() => _TermsCheckboxState();
+}
+
+class _TermsCheckboxState extends State<_TermsCheckbox> {
+  bool _agreed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _agreed = !_agreed;
+        });
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 24,
+            height: 24,
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFE0E0E0)),
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.white.withOpacity(0.2),
+            ),
+            child: _agreed ? const Icon(Icons.check, size: 16, color: Color(0xFFFF7A70)) : null,
+          ),
+          const SizedBox(width: 10),
+          const Expanded(
+            child: Text(
+              'Согласен с условиями использования и конфиденциальности',
+              style: TextStyle(fontFamily: "PTRootUI", fontSize: 12, color: Color(0xFF8A7370)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
