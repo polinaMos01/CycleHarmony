@@ -89,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
                   const SizedBox(height: 16),
-                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
+                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
                 ],
               ),
             ),

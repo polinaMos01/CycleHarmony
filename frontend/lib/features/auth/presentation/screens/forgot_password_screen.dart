@@ -85,7 +85,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                               onTap: () => context.go('/login'),
                               child: Text(
                                 'Вернуться ко входу',
-                                style: GoogleFonts.inter(
+                                style: TextStyle(fontFamily: "PTRootUI", 
                                   fontSize: 14,
                                   color: const Color(0xFFF7ADAF),
                                   fontWeight: FontWeight.bold,
@@ -115,14 +115,14 @@ class ForgotPasswordScreen extends StatelessWidget {
       children: [
         Text(
           label.toUpperCase(),
-          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
+          style: TextStyle(fontFamily: "PTRootUI", fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
         ),
         const SizedBox(height: 8),
         TextField(
-          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
+          style: TextStyle(fontFamily: "PTRootUI", fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
           decoration: InputDecoration(
             hintText: placeholder,
-            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            hintStyle: TextStyle(fontFamily: "PTRootUI", fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
             focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
             isDense: true,

@@ -91,12 +91,12 @@ class _PinScreenState extends State<PinScreen> {
                       TextButton.icon(
                         onPressed: () { setState(() { _isSetupMode = !_isSetupMode; _pinController.clear(); }); FocusScope.of(context).requestFocus(_focusNode); },
                         icon: const Icon(Icons.swap_horiz, color: Colors.black54),
-                        label: Text(_isSetupMode ? 'Создание -> Вход' : 'Вход -> Создание', style: const TextStyle(color: Colors.black54, fontSize: 12)),
+                        label: Text(_isSetupMode ? 'Создание -> Вход' : 'Вход -> Создание', style: const TextStyle(fontFamily: "PTRootUI", color: Colors.black54, fontSize: 12)),
                       ),
                       TextButton.icon(
                         onPressed: () => context.push('/language'),
                         icon: const Icon(Icons.arrow_forward, color: Colors.blueAccent),
-                        label: const Text('ПРОПУСТИТЬ ПИН', style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
+                        label: const Text('ПРОПУСТИТЬ ПИН', style: TextStyle(fontFamily: "PTRootUI", color: Colors.blueAccent, fontSize: 12)),
                       ),
                     ],
                   ),
@@ -112,7 +112,7 @@ class _PinScreenState extends State<PinScreen> {
                 children: [
                   Text('Cycle Harmony', style: TextStyle(fontFamily: 'BoleroScript', fontSize: 49, color: const Color(0xFFC9594F))),
                   const SizedBox(height: 16),
-                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
+                  Text('Понимай себя.\nСтрой гармоничные отношения.', textAlign: TextAlign.center, style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, height: 1.5, color: const Color(0xFF6B5954))),
                 ],
               ),
             ),
@@ -160,7 +160,7 @@ class _PinScreenState extends State<PinScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 0, width: 0, child: TextField(controller: _pinController, focusNode: _focusNode, keyboardType: TextInputType.number, inputFormatters: [FilteringTextInputFormatter.digitsOnly], maxLength: 4, onChanged: _onPinChanged, showCursor: false, style: const TextStyle(color: Colors.transparent), decoration: const InputDecoration(border: InputBorder.none, counterText: ''))),
+            SizedBox(height: 0, width: 0, child: TextField(controller: _pinController, focusNode: _focusNode, keyboardType: TextInputType.number, inputFormatters: [FilteringTextInputFormatter.digitsOnly], maxLength: 4, onChanged: _onPinChanged, showCursor: false, style: const TextStyle(fontFamily: "PTRootUI", color: Colors.transparent), decoration: const InputDecoration(border: InputBorder.none, counterText: ''))),
           ],
         ),
       ),

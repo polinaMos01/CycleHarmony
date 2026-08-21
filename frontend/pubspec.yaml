@@ -91,6 +91,13 @@ flutter:
     - family: BoleroScript
       fonts:
         - asset: assets/fonts/BoleroScript.ttf
+    - family: PTRootUI
+      fonts:
+        - asset: assets/fonts/PTRootUI-Regular.ttf
+        - asset: assets/fonts/PTRootUI-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PTRootUI-Bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

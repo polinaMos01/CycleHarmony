@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                           Center(
                             child: Text(
                               'или продолжить с помощью',
-                              style: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF919191)),
+                              style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -95,11 +95,11 @@ class LoginScreen extends StatelessWidget {
                               child: Text.rich(
                                 TextSpan(
                                   text: 'Ещё не зарегистрированы? ',
-                                  style: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF919191)),
+                                  style: TextStyle(fontFamily: "PTRootUI", fontSize: 14, color: const Color(0xFF919191)),
                                   children: [
                                     TextSpan(
                                       text: 'Регистрация',
-                                      style: GoogleFonts.inter(
+                                      style: TextStyle(fontFamily: "PTRootUI", 
                                         color: const Color(0xFFF7ADAF),
                                         fontWeight: FontWeight.bold,
                                         decoration: TextDecoration.underline,
@@ -147,14 +147,14 @@ class LoginScreen extends StatelessWidget {
       children: [
         Text(
           label.toUpperCase(),
-          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
+          style: TextStyle(fontFamily: "PTRootUI", fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
         ),
         const SizedBox(height: 8),
         TextField(
-          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
+          style: TextStyle(fontFamily: "PTRootUI", fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
           decoration: InputDecoration(
             hintText: placeholder,
-            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            hintStyle: TextStyle(fontFamily: "PTRootUI", fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
             focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
             isDense: true,
@@ -208,14 +208,14 @@ class _PasswordFieldState extends State<_PasswordField> {
           children: [
             Text(
               widget.label.toUpperCase(),
-              style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
+              style: TextStyle(fontFamily: "PTRootUI", fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFFF7A70)),
             ),
             if (widget.trailingText != null)
               GestureDetector(
                 onTap: widget.onTrailingTap,
                 child: Text(
                   widget.trailingText!,
-                  style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFF3B2121), decoration: TextDecoration.underline, decorationColor: const Color(0xFF3B2121)),
+                  style: TextStyle(fontFamily: "PTRootUI", fontSize: 12, color: const Color(0xFF3B2121), decoration: TextDecoration.underline, decorationColor: const Color(0xFF3B2121)),
                 ),
               ),
           ],
@@ -223,10 +223,10 @@ class _PasswordFieldState extends State<_PasswordField> {
         const SizedBox(height: 8),
         TextField(
           obscureText: _obscure,
-          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
+          style: TextStyle(fontFamily: "PTRootUI", fontSize: 15, fontWeight: FontWeight.w600, color: const Color(0xFF2E2422)),
           decoration: InputDecoration(
             hintText: widget.placeholder,
-            hintStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
+            hintStyle: TextStyle(fontFamily: "PTRootUI", fontSize: 14, fontWeight: FontWeight.w400, color: const Color(0xFF8C8785).withOpacity(0.45)),
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFD6CCCC))),
             focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFFFF7A70))),
             isDense: true,
