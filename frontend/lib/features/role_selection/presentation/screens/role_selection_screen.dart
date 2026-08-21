@@ -23,89 +23,96 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFDBD4),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              const Text(
-                'Кто вы?',
-                style: TextStyle(
-                  fontFamily: 'BoleroScript',
-                  fontSize: 48,
-                  color: Color(0xFFCC594F),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/role_selection_bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                const Text(
+                  'Кто вы?',
+                  style: TextStyle(
+                    fontFamily: 'BoleroScript',
+                    fontSize: 48,
+                    color: Color(0xFFCC594F),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Выберите вашу роль для индивидуальной настройки цикла, подсказок и общего календаря.',
-                style: GoogleFonts.manrope(
-                  fontSize: 14,
-                  color: const Color(0xFF3B2121),
-                  height: 1.4,
+                const SizedBox(height: 12),
+                Text(
+                  'Выберите вашу роль для индивидуальной настройки цикла, подсказок и общего календаря.',
+                  style: GoogleFonts.manrope(
+                    fontSize: 14,
+                    color: const Color(0xFF3B2121),
+                    height: 1.4,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: _RoleCard(
-                          title: 'Девушка',
-                          description: 'отслеживание менструации, симптомов и настроения',
-                          icon: Icons.favorite_border,
-                          isSelected: _selectedRole == 0,
-                          onTap: () => setState(() => _selectedRole = 0),
+                const SizedBox(height: 32),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: _RoleCard(
+                            title: 'Девушка',
+                            description: 'отслеживание менструации, симптомов и настроения',
+                            icon: Icons.favorite_border,
+                            isSelected: _selectedRole == 0,
+                            onTap: () => setState(() => _selectedRole = 0),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: _RoleCard(
-                          title: 'Партнёр',
-                          description: 'наблюдение за циклом партнёрши, полезные советы',
-                          icon: Icons.person_outline,
-                          isSelected: _selectedRole == 1,
-                          onTap: () => setState(() => _selectedRole = 1),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _RoleCard(
+                            title: 'Партнёр',
+                            description: 'наблюдение за циклом партнёрши, полезные советы',
+                            icon: Icons.person_outline,
+                            isSelected: _selectedRole == 1,
+                            onTap: () => setState(() => _selectedRole = 1),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  gradient: const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xFFF7ADAF), Color(0xFFFF7A70)],
-                  ),
-                ),
-                child: ElevatedButton(
-                  onPressed: _onContinue,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                  ),
-                  child: Text(
-                    'ПРОДОЛЖИТЬ',
-                    style: GoogleFonts.lora(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  width: double.infinity,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    gradient: const LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [Color(0xFFF7ADAF), Color(0xFFFF7A70)],
+                    ),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _onContinue,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    ),
+                    child: Text(
+                      'ПРОДОЛЖИТЬ',
+                      style: GoogleFonts.lora(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -173,11 +180,11 @@ class _RoleCard extends StatelessWidget {
             const Spacer(),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'PTRootUI',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF3B2121),
+                color: Color(0xFF3B2121),
               ),
             ),
             const SizedBox(height: 8),

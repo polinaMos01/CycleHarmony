@@ -169,16 +169,8 @@ class LoginScreen extends StatelessWidget {
     return Container(
       width: 48,
       height: 48,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFF7ADAF), Color(0xFFFF958F)],
-        ),
-      ),
-      child: SvgPicture.asset(asset, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn)),
+      padding: const EdgeInsets.all(8),
+      child: SvgPicture.asset(asset),
     );
   }
 }
