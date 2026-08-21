@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => context.go('/notifications'),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent,

@@ -10,6 +10,7 @@ import 'package:frontend/features/auth/presentation/screens/register_screen.dart
 import 'package:frontend/features/auth/presentation/screens/login_screen.dart';
 import 'package:frontend/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:frontend/features/pairing/presentation/screens/scanning_screen.dart';
+import 'package:frontend/features/profile_setup/presentation/screens/notifications_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
