@@ -73,18 +73,51 @@ class ForgotPasswordScreen extends StatelessWidget {
                               onPressed: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text('Успешно', style: TextStyle(fontFamily: 'PTRootUI', fontWeight: FontWeight.bold)),
-                                    content: const Text('Ссылка для сброса пароля успешно отправлена на вашу почту.', style: TextStyle(fontFamily: 'PTRootUI')),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          context.go('/login');
-                                        },
-                                        child: const Text('ОК', style: TextStyle(color: Color(0xFFCC594F))),
+                                  builder: (context) => Dialog(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(24.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Успешно',
+                                            style: TextStyle(fontFamily: 'BoleroScript', fontSize: 36, color: Color(0xFFCC594F)),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          const Text(
+                                            'Ссылка для сброса пароля успешно отправлена на вашу почту.',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontFamily: 'PTRootUI', fontSize: 14, color: Color(0xFF8A7370)),
+                                          ),
+                                          const SizedBox(height: 24),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 48,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(24),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Color(0xFFF7ADAF), Color(0xFFFF7A70)],
+                                              ),
+                                            ),
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                context.go('/login');
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                                              ),
+                                              child: const Text('ОТЛИЧНО', style: TextStyle(fontFamily: 'PTRootUI', fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 );
                               },
