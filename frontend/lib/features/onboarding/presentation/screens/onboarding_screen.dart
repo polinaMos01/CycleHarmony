@@ -27,10 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      // Здесь будет переход на экран регистрации/входа
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Дальше будет экран Регистрации/Входа (в разработке)')),
-      );
+      context.go('/role_selection');
     }
   }
 
