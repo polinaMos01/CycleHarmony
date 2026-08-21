@@ -19,8 +19,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _startAnimations();
-    Future.delayed(const Duration(milliseconds: 3500), () {
-      if (mounted) context.go('/pin');
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        context.go('/onboarding');
+      }
     });
   }
 

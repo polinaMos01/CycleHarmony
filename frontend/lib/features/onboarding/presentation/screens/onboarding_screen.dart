@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/theme/app_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -12,145 +14,170 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map<String, String>> _pages = [
-    {
-      'title': 'Таро дня и\nсоветы от Ангела',
-      'subtitle': 'Получайте ежедневные предсказания, мудрые советы Ангелов и вдохновляющие послания, настроенные под вашу фазу цикла.',
-      'button': 'ОТКРЫТЬ КАРТУ'
-    },
-    {
-      'title': 'Дневник\nсамочувствия',
-      'subtitle': 'Отслеживайте симптомы, настроение и самочувствие каждый день. Получайте персональные AI-инсайты.',
-      'button': 'НАЧАТЬ ОТСЛЕЖИВАНИЕ'
-    },
-    {
-      'title': 'Гармония\nначинается с тебя',
-      'subtitle': 'Отслеживайте цикл, настроение, здоровье — и получайте персональные рекомендации от ИИ.',
-      'button': 'НАЧАТЬ'
-    },
-    {
-      'title': 'Вместе\nна одной волне',
-      'subtitle': 'Синхронизируйте настроение и циклы с партнёром для лучшего взаимопонимания.',
-      'button': 'ДАЛЕЕ'
-    },
-    {
-      'title': 'Синхронизация\nс партнёром',
-      'subtitle': 'Поделитесь своим настроением, биоритмами и важными периодами с вашим любимым человеком.',
-      'button': 'ПОДКЛЮЧИТЬ ПАРТНЕРА'
-    },
-  ];
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _nextPage() {
+    if (_currentPage < 2) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      context.push('/pin'); // After onboarding, go to pin (login/setup)
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Gradient matching Figma
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFFCF3EE), // Soft peach top
-                  Color(0xFFF9E8E2), // Slightly darker bottom
-                ],
+          // Backgrounds and Text PageView
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            children: [
+              _buildPage(
+                title: "Понимай себя \nи своего партнёра",
+                subtitle: "Раскрой свои сильные стороны, пойми потребности партнёра и строй крепкие отношения каждый день",
+                bgImage: 'assets/images/onboarding_bg_1.png',
               ),
-            ),
+              _buildPage(
+                title: "Вместе \nна одной волне",
+                subtitle: "Поделитесь своим настроением, биоритмами и важными периодами с вашим любимым человеком. Стройте гармонию вместе без лишних вопросов.",
+                bgImage: 'assets/images/onboarding_bg_1.png', // reusing couple image
+              ),
+              _buildPage(
+                title: "Гармония \nначинается с тебя",
+                subtitle: "Отслеживайте цикл, настроение, здоровье — и получайте персональные рекомендации от ИИ",
+                bgImage: 'assets/images/onboarding_bg_3.png',
+              ),
+            ],
           ),
-          // Here we can place the exact illustration for each page once identified
-          // Positioned.fill(child: Image.asset('assets/images/...', fit: BoxFit.cover)),
-          
-          SafeArea(
+
+          // Bottom Controls (Button and Dots)
+          Positioned(
+            bottom: 40,
+            left: 24,
+            right: 24,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (int page) {
-                      setState(() {
-                        _currentPage = page;
-                      });
-                    },
-                    itemCount: _pages.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 60), // Top margin like in Figma
-                            Text(
-                              _pages[index]['title']!,
-                              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                                height: 1.2,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            Text(
-                              _pages[index]['subtitle']!,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                height: 1.5,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 56, // Button height matching Figma
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_currentPage < _pages.length - 1) {
-                              _pageController.nextPage(
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                              );
-                            } else {
-                              context.push('/questionnaire_calendar');
-                            }
-                          },
-                          child: Text(
-                            _pages[_currentPage]['button']!,
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
+                // ДАЛЕЕ / НАЧАТЬ Button
+                SizedBox(
+                  width: 329,
+                  height: 48,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Color(0xFFF7ADAF), // Светло-розовый
+                          AppTheme.coralPrimary, // Коралловый
+                        ],
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: _nextPage,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      const SizedBox(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          _pages.length,
-                          (index) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            height: 6,
-                            width: _currentPage == index ? 24 : 6,
-                            decoration: BoxDecoration(
-                              color: _currentPage == index
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColor.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                          ),
+                      child: Text(
+                        _currentPage == 2 ? 'НАЧАТЬ' : 'ДАЛЕЕ',
+                        style: GoogleFonts.lora(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.buttonText,
+                          letterSpacing: 1.0,
                         ),
                       ),
-                      const SizedBox(height: 16),
-                    ],
+                    ),
                   ),
                 ),
+                const SizedBox(height: 32),
+                
+                // Pagination Dots
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(3, (index) {
+                    bool isActive = _currentPage == index;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      width: isActive ? 24 : 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: isActive 
+                            ? const Color(0xFFD98C8C) // Активный (из SwiftUI)
+                            : const Color(0xFFD98C8C).withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    );
+                  }),
+                ),
+                const SizedBox(height: 10), // safe area buffer
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPage({required String title, required String subtitle, required String bgImage}) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Background Image
+        Image.asset(
+          bgImage,
+          fit: BoxFit.cover,
+        ),
+        // Text Content Overlay
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 60),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'BoleroScript',
+                    fontSize: 49,
+                    height: 1.1,
+                    color: AppTheme.logoRed,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    height: 1.5,
+                    color: const Color(0xFF6B5954),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
