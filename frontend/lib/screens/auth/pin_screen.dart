@@ -111,10 +111,20 @@ class _PinScreenState extends State<PinScreen> {
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: TextButton.icon(
-                  onPressed: () { setState(() { _isSetupMode = !_isSetupMode; _pinController.clear(); }); FocusScope.of(context).requestFocus(_focusNode); },
-                  icon: const Icon(Icons.swap_horiz, color: Colors.black54),
-                  label: Text(_isSetupMode ? 'ДЕМO: "Создание" -> Вход' : 'ДЕМO: "Вход" -> Создание', style: const TextStyle(color: Colors.black54, fontSize: 12)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () { setState(() { _isSetupMode = !_isSetupMode; _pinController.clear(); }); FocusScope.of(context).requestFocus(_focusNode); },
+                      icon: const Icon(Icons.swap_horiz, color: Colors.black54),
+                      label: Text(_isSetupMode ? 'Создание -> Вход' : 'Вход -> Создание', style: const TextStyle(color: Colors.black54, fontSize: 12)),
+                    ),
+                    TextButton.icon(
+                      onPressed: () => context.push('/language'),
+                      icon: const Icon(Icons.arrow_forward, color: Colors.blueAccent),
+                      label: const Text('ПРОПУСТИТЬ ПИН', style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
+                    ),
+                  ],
                 ),
               ),
             ),
