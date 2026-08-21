@@ -87890,7 +87890,7 @@ m=A.d_(24)
 s=A.uK(q,q,B.w,q,q,q,q,q,q,q,q,q,q,B.w,new A.cy(A.d_(24),B.q),q,q,q,q,q)
 m=A.cP(q,A.Am(A.bE("\u0412\u041e\u0419\u0422\u0418",q,q,q,A.tN().$3$color$fontSize$fontWeight(B.k,16,B.ao),q,q),new A.aaq(),s),B.t,q,q,new A.bW(q,q,q,m,q,B.dQ,B.a8),q,48,q,q,q,q,1/0)
 s=A.f5(A.bE("\u0438\u043b\u0438 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e",q,q,q,A.bQ(q,q,B.jU,q,q,q,q,q,p,q,q,14,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q)
-o=A.i2(A.b([o.DL("assets/svg/vk.svg"),B.mg,o.DL("assets/svg/apple.svg"),B.mg,o.DL("assets/svg/google.svg")],k),B.a4,B.cb,B.Y,0)
+o=A.i2(A.b([o.DL("assets/svg/uil_vk.svg"),B.mg,o.DL("assets/svg/ic_twotone-apple.svg"),B.mg,o.DL("assets/svg/uim_google.svg")],k),B.a4,B.cb,B.Y,0)
 r=A.bQ(q,q,B.jU,q,q,q,q,q,p,q,q,14,q,q,q,q,q,!0,q,q,q,q,q,q,q,q)
 return A.R0(new A.f8(new A.ad(0,1/0,b.d,1/0),new A.vb(new A.co(B.km,A.dE(A.b([new A.e5(B.cu,q,q,n,q),B.fB,B.a_7,B.iQ,l,B.cK,new A.Hg("\u041f\u0430\u0440\u043e\u043b\u044c","\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022","\u0417\u0430\u0431\u044b\u043b\u0438 \u043f\u0430\u0440\u043e\u043b\u044c?",new A.aar(a),q),B.mi,m,B.cL,s,B.c2,o,B.AG,A.f5(A.eO(q,A.aAZ(A.cE(A.b([A.cE(q,q,q,q,q,q,q,q,q,A.bQ(q,q,B.aK,q,B.ck,B.aK,q,q,p,q,q,q,q,q,B.ay,q,q,!0,q,q,q,q,q,q,q,q),"\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f")],t.VO),q,q,q,q,q,q,q,q,r,"\u0415\u0449\u0451 \u043d\u0435 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u044b? "),q,q),B.T,!1,q,q,q,q,q,q,q,q,q,q,q,q,q,q,new A.aas(a),q,q,q,q,q,q),q,q),B.iP],k),B.am,B.Q,B.Y),q),q),q),q)},
 $S:117}
