@@ -35,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            'РЕГИСТРАЦИЯ',
+                            'Регистрация',
                             style: TextStyle(fontFamily: 'BoleroScript', fontSize: 48, color: Color(0xFFCC594F)),
                           ),
                           const Spacer(flex: 1),
