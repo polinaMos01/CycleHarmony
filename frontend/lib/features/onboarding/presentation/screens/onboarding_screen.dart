@@ -56,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               _buildPage(
                 title: "Вместе \nна одной волне",
                 subtitle: "Поделитесь своим настроением, биоритмами и важными периодами с вашим любимым человеком. Стройте гармонию вместе без лишних вопросов.",
-                bgImage: 'assets/images/onboarding_bg_1.png', // reusing couple image
+                bgImage: 'assets/images/onboarding_bg_2.png',
               ),
               _buildPage(
                 title: "Гармония \nначинается с тебя",
