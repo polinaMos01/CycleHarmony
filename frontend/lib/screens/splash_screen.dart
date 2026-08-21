@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
           // Ветка СЛЕВА
           Positioned(
-            left: -100, top: 150,
+            left: -100, top: 50,
             child: AnimatedOpacity(
               opacity: _opacityLeftBranch, duration: const Duration(milliseconds: 800),
               child: SvgPicture.asset('assets/svg/Object-1.svg', width: 264, clipBehavior: Clip.none),
