@@ -87,8 +87,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  // Переход на следующий экран (Выбор роли)
-                  context.push('/role_selection');
+                  // Переход на следующий экран (Онбординг)
+                  context.push('/onboarding');
                 },
                 child: Container(
                   width: 329,

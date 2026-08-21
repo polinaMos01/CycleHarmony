@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      context.push('/pin'); // After onboarding, go to pin (login/setup)
+      context.push('/role_selection'); // After onboarding, go to role selection (or login)
     }
   }
 
