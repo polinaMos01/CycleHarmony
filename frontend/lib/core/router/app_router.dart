@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:frontend/screens/auth/language_screen.dart';
-import 'package:frontend/screens/auth/pin_screen.dart';
-import 'package:frontend/screens/auth/role_selection_screen.dart';
-import 'package:frontend/screens/auth/password_recovery_screen.dart';
-import 'package:frontend/screens/onboarding/onboarding_screen.dart';
+import 'package:frontend/features/language/presentation/screens/language_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/pin_screen.dart';
+import 'package:frontend/features/role_selection/presentation/screens/role_selection_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/password_recovery_screen.dart';
+import 'package:frontend/features/onboarding/presentation/screens/onboarding_screen.dart';
 
-import 'package:frontend/screens/splash_screen.dart';
-import 'package:frontend/screens/questionnaire/calendar_screen.dart';
+import 'package:frontend/features/auth/presentation/screens/splash_screen.dart';
+import 'package:frontend/features/questionnaire/presentation/screens/calendar_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
