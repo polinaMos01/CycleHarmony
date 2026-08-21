@@ -23,7 +23,7 @@ class CycleHarmonyApp extends ConsumerWidget {
       builder: (context, child) {
         return Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 420),
+            constraints: const BoxConstraints(maxWidth: 390, maxHeight: 844),
             child: Container(
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(

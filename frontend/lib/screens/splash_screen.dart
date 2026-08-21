@@ -77,8 +77,9 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           
-          // ЗАГОЛОВОК СТРОГО ПО ЦЕНТРУ
-          Center(
+          // ЗАГОЛОВОК СТРОГО ЗАФИКСИРОВАН ПО ВЫСОТЕ
+          Positioned(
+            top: 170, left: 0, right: 0,
             child: AnimatedOpacity(
               opacity: _opacityText, duration: const Duration(milliseconds: 1000),
               child: Column(
